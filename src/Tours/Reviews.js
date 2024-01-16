@@ -23,7 +23,7 @@ const Reviews = ({reviews}) => {
   return (
     <>
    
-    <div className='w-[90%] mx-auto md:w-2/5 bg-white my-24 p-12 shadow-md rounded-md'>
+    <div className='w-[90%] mx-auto md:w-2/5 bg-white my-24 p-12 shadow-md rounded-md hover:shadow-xl'>
        
           {reviews.map((rev, index) => {
         
