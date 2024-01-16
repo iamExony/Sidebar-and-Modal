@@ -1,5 +1,5 @@
 import React from 'react'
-import Reviews from './Tours/Reviews'
+import Accordions from './Tours/Accordions'
 import {data} from './data'
 
 const App = () => {
@@ -7,7 +7,9 @@ const App = () => {
 
   return (
     <>
-    <Reviews reviews = {data} />
+    <div>
+    <Accordions items = {data} />
+    </div>
     </>
   )
 }

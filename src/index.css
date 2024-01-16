@@ -3,26 +3,6 @@
 @tailwind utilities;
 
 body{
-background: #f8fafc;
+background: #cffafe;
 width: 100vw;
-overflow: hidden;
-}
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: start;
-  gap: 10px;
-}
-
-.grid-item {
-  border: 1px solid #000;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Media query for medium-sized devices */
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr; /* Set to a single column for medium devices */
-  }
 }

@@ -1,43 +1,27 @@
 export const data = [
   {
     id: 1,
-    name: "Susan Smith",
-    image: "/images/person-1.jpeg",
-    content:
-      "I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up. Shaman humblebrag pickled coloring book salvia hoodie, cold-pressed four dollar toast everyday carry",
-    desig: "WEB DEVELOPER",
+    title: "Do I Have To Allow The Use Of Cookies?",
+    content: "Unicorn vinyl poutine brooklyn, next level direct trade iceland. Shaman copper mug church-key coloring book, whatever poutine normcore fixie cred kickstarter post-ironic street art.",
   },
-  {
-    id: 2,
-    name: "Anna Johnson",
-    image: "/images/person-2.jpeg",
-    content:
-      "Helvetica artisan kinfolk thundercats lumbersexual blue bottle. Disrupt glossier gastropub deep v vice franzen hell of brooklyn twee enamel pin fashion axe.photo booth jean shorts artisan narwhal.",
-    desig: "WEB DESIGNER",
-  },
-  {
+  {  
     id: 3,
-    name: "Peter Jones",
-    image: "/images/person-3.jpeg",
-    content:
-      "Sriracha literally flexitarian irony, vape marfa unicorn. Glossier tattooed 8-bit, fixie waistcoat offal activated charcoal slow-carb marfa hell of pabst raclette post-ironic jianbing swag.",
-    desig: "INTERN",
+    title: "How Do I Change My My Page Password?",
+    content: "Coloring book forage photo booth gentrify lumbersexual. Migas chillwave poutine synth shoreditch, enamel pin thundercats fashion axe roof party polaroid chartreuse.",
   },
-  {
+  {  
     id: 4,
-    name: "Bill Anderson",
-    image: "/images/person-4.jpeg",
-    content:
-      "Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic.",
-    desig: "THE BOSS",
+    title: "What Is BankID?",
+    content: "Enamel pin fam sustainable woke whatever venmo. Authentic asymmetrical put a bird on it, lumbersexual activated charcoal kinfolk banjo cred pickled sartorial.",
   },
-  {
+  {  
     id: 5,
-    name: "John Smilga",
-    image: "/images/person-5.jpeg",
-    content:
-      "Michael bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic.",
-    desig: "INSTRUCTOR",
+    title: "Whose Birth Number Can I Use?",
+    content: "Edison bulb direct trade gentrify beard lo-fi seitan sustainable roof party franzen occupy squid. Knausgaard cronut succulents, scenester readymade shabby chic lyft. Copper mug meh vegan gentrify.",
   },
-  
+  {  
+    id: 6,
+    title: "When Do I Recieve A Password Ordered By Letter?",
+    content: "Locavore franzen fashion axe live-edge neutra irony synth af tilde shabby chic man braid chillwave waistcoat copper mug messenger bag. Banjo snackwave blog, microdosing thundercats migas vaporware viral lo-fi seitan",
+  },
 ];

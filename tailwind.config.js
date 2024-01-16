@@ -8,9 +8,9 @@ module.exports = {
     gridTemplateColumns:{
       space: '1fr 1fr 1fr'
     },
-    gap: {
-      point5: '1.5rem'
-    }
+    textColor:{
+      'primary-100': '#0f172a'
+    },
   },
   },
   plugins: [],
