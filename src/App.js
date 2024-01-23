@@ -1,84 +1,74 @@
 import React, { useState } from 'react'
 import {data} from './data'
+import { HiChevronDoubleRight } from "react-icons/hi";
 
-const App = () => {
-  const [selectedItem,setSelectedItem] = useState(data);
-  
-  const filterItems = (eachItem) => {
-    switch(eachItem) {
-      case 'all' :
-        setSelectedItem(data);
-        break;
-      case 'breakfast' :
-        setSelectedItem(data.filter((items, index) => index  % 3 === 0));
-        break;
-      case 'lunch' :
-        setSelectedItem(data.filter((items, index) => index % 3 === 1));
-        break;
-      case 'shakes' :
-        setSelectedItem(data.filter((items, index)=> index % 3 === 2));
-        break;
+const Items = ({tabs}) =>{
 
-      default:
-        setSelectedItem(selectedItem);
-    }
-
-  }
-
-/*   const oddNumbers = mappedList.filter(number => number % 2 !== 0); */
-
-return (
-    <>
-    <section className='flex flex-col items-center gap-8 py-16'>
-      
-      <article className='flex  flex-col items-center gap-8'>
-        <header className='flex items-center flex-col gap-2'>
-          <h1 className='text-5xl'>Our Menu</h1>
-          <div className='border-2 border-[#f59e0b] w-24'></div>
-        </header>
-
-        <aside className='flex items-center gap-4'>
-          <button className='bg-[#f59e0b] hover:bg-[#b45309] hover:shadow-lg text-white px-4 rounded-sm text-center' onClick={() => filterItems('all')}>All</button>
-          <button className='bg-[#f59e0b] hover:bg-[#b45309] hover:shadow-lg text-white px-4 rounded-sm text-center'  onClick={() => filterItems('breakfast')}>Breakfast</button>
-          <button className='bg-[#f59e0b] hover:bg-[#b45309] hover:shadow-lg text-white px-4 rounded-sm text-center' onClick={() => filterItems('lunch')}>Lunch</button>
-          <button className='bg-[#f59e0b] hover:bg-[#b45309] hover:shadow-lg text-white px-4 rounded-sm text-center' onClick={() => filterItems('shakes')}>Shakes</button>
-        </aside>
-        
-      </article>
-    
-      <section className='flex flex-col items-start md:w-[90%] w-[75%] md:flex-wrap md:flex-row md:gap-8 justify-center'>
-      {selectedItem.map((items, index) => {
-      console.log(index)
-      return <>
-      
-      <ListItem key={index} items={items} />
-        
-  
-      </>})}
-      </section>
-    </section>
-    </>
-  )
+return <> {tabs.map((list, index) => (
+      <div key={index} {...list} className='my-12 text-blue-950 md:my-0 md:w-[70%]'>
+        {index === 0 && <div className='flex flex-col gap-8'>
+        <section className='flex flex-col items-start gap-2'>
+        <h1 className='text-3xl'>{list.title}</h1>
+        <h2 className='bg-gray-300 inline-block px-2 rounded text-lg'>{list.caption}</h2>
+        <h3 className='tracking-wider'>{list.date}</h3>
+        </section>
+        <ul className='flex flex-col gap-4'>
+          {Object.entries(list.content).map(([key, value]) => (
+            <li key={key} className='flex items-center gap-6'><HiChevronDoubleRight className='text-8xl text-[#26ac9a] md:text-4xl lg:text-4xl'/>{value}</li>
+          
+          ))}
+        </ul>
+        </div>}
+      </div>
+    ))}
+    </> 
 }
 
-const ListItem = ({items}) => {
+const App = () => {
+const [tabs, setTabs] = useState(data)
+const [isSelected, setIsSelected] = useState(1)
 
-  
+
+
+const filterItem = (items) =>{
+  switch(items){
+    case 'tommy':
+      setTabs(data.filter((items, index) => index ===0))
+      setIsSelected(1)
+      break
+    case 'bigdrop':
+      setTabs(data.filter((items, index) => index ===1))
+      setIsSelected(2)
+      break
+    case 'cuker':
+      setTabs(data.filter((items, index) => index ===2))
+      setIsSelected(3)
+      break
+    default:
+      setTabs(data.filter((item, index) => index ===0))
+      
+      
+  }
+}
+
   return (
     <>
-    <section className='bg-white my-4 rounded-md md:max-w-[23rem] shadow'>
-    <img src={items.image} alt={items.title} className='w-[30rem] h-64 object-cover rounded-t-md'/>
-        <aside className='p-7'>
-          <article className='flex justify-between'>
-        <h1 className='text-xl font-semibold'>{items.title}</h1>
-        <h1 className='text-md rounded text-white bg-[#f59e0b] px-4'>{items.price}</h1>
-        </article>
-        <p className='py-4 leading-loose text-gray-400'>{items.content}</p>
-        </aside>
-      </section>
-    </>
-    )
+    <div className='w-screen h-auto flex flex-col items-center justify-between'>
+  <section className='w-[85%] my-20 flex flex-col items-center md:flex-row md:items-start'>
+    {/* TABS */}
+    <header className='flex items-center gap-4 font-semibold md:flex-col md:items-start md:max-w-64 '>
+      <button onClick={()=> filterItem('tommy') }  className={`cursor-pointer px-16 ${isSelected === 1 ? 'text-[#2dd4bf] border-b-2 md:border-b-0 md:border-l-2 border-[#2dd4bf]':'bg-transparent'} hover:text-[#2dd4bf] hover:border-b-2 md:hover:border-b-0 md:hover:border-l-2 hover:border-[#2dd4bf]  hover:transition-all`}>TOMMY</button>
+      <button onClick={()=> filterItem('bigdrop')} className={`cursor-pointer px-16 ${isSelected === 2 ? 'text-[#2dd4bf] border-b-2 md:border-b-0 md:border-l-2 border-[#2dd4bf]':'bg-transparent'} hover:text-[#2dd4bf] hover:border-b-2 md:hover:border-b-0 md:hover:border-l-2 hover:border-[#2dd4bf]  hover:transition-all`}>BIGDROP</button>
+      <button onClick={()=> filterItem('cuker')} className={`cursor-pointer px-16 ${isSelected === 3 ? 'text-[#2dd4bf] border-b-2 md:border-b-0 md:border-l-2 border-[#2dd4bf]':'bg-transparent'} hover:text-[#2dd4bf] hover:border-b-2 md:hover:border-b-0 md:hover:border-l-2 hover:border-[#2dd4bf]  hover:transition-all`}>CUKER</button>
 
+    </header>
+    {/* ========= */}
+    <Items tabs = {tabs} />
+  </section>
+</div>
+
+    </>
+  )
 }
 
 export default App

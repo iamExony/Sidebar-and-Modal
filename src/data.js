@@ -1,66 +1,36 @@
 export const data = [
   {
     id: 1,
-    title: "Buttermilk Pancakes",
-    price: "$15.99",
-    image: "/images/item-1.jpeg",
-    content: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed`
+    title: "Full Stack Web Developer",
+    caption: "TOMMY",
+    date: "December 2015 - Present",
+    content: {value1: 'Tote bag sartorial mlkshk air plant vinyl banjo lumbersexual poke leggings offal cold-pressed brunch neutra. Hammock photo booth live-edge disrupt.', 
+    value2: 'Post-ironic selvage chambray sartorial freegan meditation. Chambray chartreuse kombucha meditation, man bun four dollar toast street art cloud bread live-edge heirloom.',
+    value3: 'Butcher drinking vinegar franzen authentic messenger bag copper mug food truck taxidermy. Mumblecore lomo echo park readymade iPhone migas single-origin coffee franzen cloud bread tilde vegan flexitarian.'
+  }
   },
   {
     id: 2,
-    title: "Diner Double",
-    price: "$13.99",
-    image: "/images/item-2.jpeg",
-    content: "vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats",
+    title: "Front-End Engineer",
+    caption: "BIGDROP",
+    date: "May 2015 - December 2015",
+    content: {
+    value1: 'Hashtag drinking vinegar scenester mumblecore snackwave four dollar toast, lumbersexual XOXO. Cardigan church-key pabst, biodiesel vexillologist viral squid.', 
+    value2: 'Franzen af pitchfork, mumblecore try-hard kogi XOXO roof party la croix cardigan neutra retro tattooed copper mug. Meditation lomo biodiesel scenester',
+    value3: 'Fam VHS enamel pin try-hard echo park raw denim unicorn fanny pack vape authentic. Helvetica fixie church-key, small batch jianbing messenger bag scenester +1',
+    value4: 'Fam VHS enamel pin try-hard echo park raw denim unicorn fanny pack vape authentic. Helvetica fixie church-key, small batch jianbing messenger bag scenester +1'
+  }
   },
   {
     id: 3,
-    title: "Godzilla Milkshake",
-    price: "$6.99",
-    image: "/images/item-3.jpeg",
-    content: "ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.",
-  },
-  {
-    id: 4,
-    title: "Country Delight",
-    price: "$20.99",
-    image: "/images/item-4.jpeg",
-    content: "Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut,",
-  },
-  {
-    id: 5,
-    title: "Egg Attack",
-    price: "$22.99",
-    image: "/images/item-5.jpeg",
-    content: "franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up",
-  },
-    {
-    id: 6,
-    title: "Oreo Dream",
-    price: "$18.99",
-    image: "/images/item-6.jpeg",
-    content: "Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday",
-  },
-  {
-    id: 7,
-    title: "Bacon Overflow",
-    price: "$8.99",
-    image: "/images/item-7.jpeg",
-    content: "carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird",
-  },
-  {
-    id: 8,
-    title: "American Classic",
-    price: "$12.99",
-    image: "/images/item-8.jpeg",
-    content: "on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut",
-  },
-  {
-    id: 9,
-    title: "Quarantine Buddy",
-    price: "$16.99",
-    image: "/images/item-9.jpeg",
-    content: "skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.",
+    title: "Engineering Intern",
+    caption: "CUKER",
+    date: "May 2015 - December 2015",
+    content: {
+    value1: "I'm baby woke mumblecore stumptown enamel pin. Snackwave prism pork belly, blog vape four loko sriracha messenger bag jean shorts DIY bushwick VHS. Banjo post-ironic hella af, palo santo craft beer gluten-free.", 
+    value2: 'YOLO drinking vinegar chambray pok pok selfies quinoa kinfolk pitchfork street art la croix unicorn DIY. Woke offal jianbing venmo tote bag, palo santo subway tile slow-carb post-ironic pug ugh taxidermy squid.',
+    value3: 'Pour-over glossier chambray umami 3 wolf moon. Iceland kale chips asymmetrical craft beer actually forage, biodiesel tattooed fingerstache. Pork belly lomo man braid, portland pitchfork locavore man bun prism.'
   }
+  },
   
 ];

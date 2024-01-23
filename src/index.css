@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 body{
+width: 100%;
+box-sizing: border-box;
 background: #f8fafc;
-width: 100vw;
+margin: 0;
 }
