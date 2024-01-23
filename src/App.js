@@ -5,7 +5,7 @@ import { HiChevronDoubleRight } from "react-icons/hi";
 const Items = ({tabs}) =>{
 
 return <> {tabs.map((list, index) => (
-      <div key={index} {...list} className='my-12 text-blue-950 md:my-0 md:w-[70%]'>
+      <div key={index} {...list} className='my-12 text-blue-950 md:my-0'>
         {index === 0 && <div className='flex flex-col gap-8'>
         <section className='flex flex-col items-start gap-2'>
         <h1 className='text-3xl'>{list.title}</h1>
@@ -56,7 +56,7 @@ const filterItem = (items) =>{
     <div className='w-screen h-auto flex flex-col items-center justify-between'>
   <section className='w-[85%] my-20 flex flex-col items-center md:flex-row md:items-start'>
     {/* TABS */}
-    <header className='flex items-center gap-4 font-semibold md:flex-col md:items-start md:max-w-64 '>
+    <header className='flex items-center gap-1 font-semibold md:flex-col md:items-start md:max-w-64 '>
       <button onClick={()=> filterItem('tommy') }  className={`cursor-pointer px-16 ${isSelected === 1 ? 'text-[#2dd4bf] border-b-2 md:border-b-0 md:border-l-2 border-[#2dd4bf]':'bg-transparent'} hover:text-[#2dd4bf] hover:border-b-2 md:hover:border-b-0 md:hover:border-l-2 hover:border-[#2dd4bf]  hover:transition-all`}>TOMMY</button>
       <button onClick={()=> filterItem('bigdrop')} className={`cursor-pointer px-16 ${isSelected === 2 ? 'text-[#2dd4bf] border-b-2 md:border-b-0 md:border-l-2 border-[#2dd4bf]':'bg-transparent'} hover:text-[#2dd4bf] hover:border-b-2 md:hover:border-b-0 md:hover:border-l-2 hover:border-[#2dd4bf]  hover:transition-all`}>BIGDROP</button>
       <button onClick={()=> filterItem('cuker')} className={`cursor-pointer px-16 ${isSelected === 3 ? 'text-[#2dd4bf] border-b-2 md:border-b-0 md:border-l-2 border-[#2dd4bf]':'bg-transparent'} hover:text-[#2dd4bf] hover:border-b-2 md:hover:border-b-0 md:hover:border-l-2 hover:border-[#2dd4bf]  hover:transition-all`}>CUKER</button>
