@@ -1,58 +1,95 @@
-import React, { useState } from 'react'
-import {data} from './data'
+import React, { useReducer, useState } from "react";
+import Values from "values.js";
+import SingleColor from "./SingleColor";
+import Modal from "./Modal";
+import {reducer} from './Reducer'
+
+
+//defualt state
+const defaultState = {
+  colorList: new Values("#f15025").all(10),
+  isModalOpen: false,
+  modalContent: "",
+};
 
 const App = () => {
-  const [numbers, setNumbers] = useState(1)
-  const [persons, setPersons] = useState([])
-  
+  const [selectColor, setSelectColor] = useState(""); //select input color
+  const [state, dispatch] = useReducer(reducer, defaultState); //reducer hooks
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setPersons(data.slice(0, numbers))
-  }
-    return (
-      <>
-        <div className="w-full flex items-center justify-center">
-          <article className="max-w-2xl flex items-center flex-col my-32 mx-12">
-            <h1 className="uppercase text-2xl">tired of boring lorem ipsum?</h1>
-            <form onSubmit={handleSubmit}>
-              <section className="flex items-center gap-4 my-8">
-                <label className="text-lg">Paragraphs:</label>
-                <input
-                  type="number"
-                  min={1}
-                  max={8}
-                  step={1}
-                  className="bg-gray-300 text-2xl rounded-md"
-                  value={numbers}
-                  name="Number"
-                  onChange={(e) => setNumbers(e.target.value)}
-                ></input>
-                <button
-                  type="submit"
-                  className="bg-[#10b981] px-3 p-1 rounded text-white shadow-sm hover:shadow-md"
-                >
-                  Generate
-                </button>
-              </section>
-            </form>
-            <ul className="flex items-center flex-col justify-center gap-12">
-              {persons.map((person, index) => {
-                const { id, content } = person;
-
-                return (
-                  <>
-                    <div key={id}>
-                      <li>{content}</li>
-                    </div>
-                  </>
-                );
-              })}
-            </ul>
-          </article>
-        </div>
-      </>
-    );
+  //handle input change function
+  const handleChange = (e) => {
+    setSelectColor(e.target.value);
   };
 
-export default App
+  //handle submit button
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      let color = new Values(selectColor);
+      const mycolors = color.all(10);
+      dispatch({ type: "COLOR_ADDED", payload: mycolors });
+    } catch (error) {
+      const errorMessage = error.message.replace(/^Error: /, "");
+      dispatch({ type: "INVALID_COLOR", payload: `${errorMessage}` });
+    }
+  };
+  // console.log(colorList);
+
+  //Close Modal function
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
+
+  
+  return (
+    <>
+      {state.isModalOpen && (
+        <Modal modalContent={state.modalContent} closeModal={closeModal} />
+      )}
+      <section className="flex my-[60px] ml-8 md:ml-2 gap-12 justify-center flex-col md:items-center md:flex-row">
+        <h1 className="text-2xl">Color Generator</h1>
+        <div>
+          <form
+            className="flex justify-between bg-white w-96 h-12"
+            onSubmit={handleSubmit}
+          >
+            <aside
+              style={{ background: selectColor }}
+              className="h-8 w-12 m-2 bg-black"
+            ></aside>
+            <div className="flex ">
+              <input
+                type="text"
+                value={selectColor}
+                style={{ outlineColor: selectColor }}
+                placeholder="#f15025"
+                className="w-60 placeholder:text-xl text-xl px-4"
+                onChange={handleChange}
+              />
+              <button
+                type="submit"
+                style={{ background: selectColor }}
+                className="bg-blue-700 rounded-r w-20 text-white"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      {/* Display List of Colors  */}
+      <section className="flex flex-wrap">
+        {state.colorList.map((color, index) => {
+          return (
+            <>
+              <SingleColor {...color} index={index} hex={color.hex}  closeModal={closeModal}/>
+            </>
+          );
+        })}
+      </section>
+    </>
+  );
+};
+
+export default App;
