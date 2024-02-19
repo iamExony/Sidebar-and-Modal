@@ -1,29 +1,10 @@
-import React, { useReducer } from "react";
-import Modal from "./Modal";
-import { reducer } from "./Reducer";
+import React from "react";
 
 
-//defualt state
-const defaultState = {
-  isModalOpen: false,
-  modalContent: "",
-};
-const SingleColor = ({ rgb, weight, hex, index}) => {
-  const [state, dispatch] = useReducer(reducer, defaultState);
+const SingleColor = ({ rgb, weight, hex, index, handleCopied}) => {
 
   let bkg = rgb.join(",");
 
-  //handle copied function
-  const handleCopied = (hex) => {
-    const hexColor = `#${hex}`;
-    navigator.clipboard.writeText(hexColor);
-    dispatch({ type: "COPIED" });
-  };
-
-  //Close Modal function
-  const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
-  };
   return (
     <article
       key={index}
@@ -39,9 +20,7 @@ const SingleColor = ({ rgb, weight, hex, index}) => {
       <h1
         className={`${index > 10 ? "text-white" : "text-black"} px-8`}
       >{`#${hex}`}</h1>
-      {state.isModalOpen && (
-        <Modal modalContent={state.modalContent} closeModal={closeModal} />
-      )}
+
     </article>
   );
 };

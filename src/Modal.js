@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
-const Modal = ({ modalContent, closeModal }) => {
+const Modal = ({ modalContent, closeModal, closeButton }) => {
   const [width, setWidth] = useState('100%');
 
   useEffect(() => {
@@ -8,15 +9,18 @@ const Modal = ({ modalContent, closeModal }) => {
       setWidth('0%');
       setTimeout(() => {
         closeModal();
-      }, 3000);
-    }, 100);
+      }, 2000);
+    }, 50);
 
     return () => clearTimeout(timeout);
   }, []);
 
   return (
-    <div className="absolute w-80 h-20 bg-white top-2 right-32 rounded">
-      <h1 className="text-lg pt-4 px-4 h-[76px] text-gray-500">
+    <div className="absolute w-80 h-20 bg-white top-2 right-32 rounded shadow-sm">
+      <button  className="absolute right-2 top-2" onClick={closeButton}>
+        <IoClose />
+      </button>
+      <h1 className="text-lg pt-4 px-4 h-[76px] text-gray-500 ">
         {modalContent}
       </h1>
       <aside

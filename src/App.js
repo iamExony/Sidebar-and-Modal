@@ -2,8 +2,7 @@ import React, { useReducer, useState } from "react";
 import Values from "values.js";
 import SingleColor from "./SingleColor";
 import Modal from "./Modal";
-import {reducer} from './Reducer'
-
+import { reducer } from "./Reducer";
 
 //defualt state
 const defaultState = {
@@ -39,12 +38,26 @@ const App = () => {
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
+  //Close Button function
+  const closeButton = () => {
+    dispatch({ type: "CLOSE_BUTTON" });
+  };
 
-  
+  //handle copied function
+  const handleCopied = (hex) => {
+    const hexColor = `#${hex}`;
+    navigator.clipboard.writeText(hexColor);
+    dispatch({ type: "COPIED" });
+  };
+
   return (
     <>
       {state.isModalOpen && (
-        <Modal modalContent={state.modalContent} closeModal={closeModal} />
+        <Modal
+          modalContent={state.modalContent}
+          closeModal={closeModal}
+          closeButton={closeButton}
+        />
       )}
       <section className="flex my-[60px] ml-8 md:ml-2 gap-12 justify-center flex-col md:items-center md:flex-row">
         <h1 className="text-2xl">Color Generator</h1>
@@ -83,7 +96,13 @@ const App = () => {
         {state.colorList.map((color, index) => {
           return (
             <>
-              <SingleColor {...color} index={index} hex={color.hex}  closeModal={closeModal}/>
+              <SingleColor
+                {...color}
+                index={index}
+                hex={color.hex}
+                closeModal={closeModal}
+                handleCopied={handleCopied}
+                              />
             </>
           );
         })}

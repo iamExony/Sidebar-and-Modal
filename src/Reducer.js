@@ -30,4 +30,10 @@ export const reducer = (state, action) => {
       isModalOpen: false,
     };
   }
+  if (action.type === "CLOSE_BUTTON") {
+    return {
+      ...state,
+      isModalOpen: false,
+    };
+  }
 };
