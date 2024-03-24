@@ -226,14 +226,14 @@ const App = () => {
             singleItems={state.listItems}
           />
         )}
-        <div className="bg-white max-w-[32rem] mx-auto mt-36 shadow-md hover:shadow-lg rounded flex flex-col items-center justify-center gap-4 py-8">
+        <div className="bg-white w-[90%] md:w-[50%] mx-auto mt-36 shadow-md hover:shadow-lg rounded flex flex-col items-center justify-center gap-4 py-8">
           <h1 className="text-4xl">TODO LIST</h1>
           <h1 className="italic text-gray-300">
             What do you want to do today?
           </h1>
           <form onSubmit={handleSubmit}>
             <input
-              className="bg-[#f8fafc] outline-[#f1c40f] rounded-l-md w-72 h-8 px-4"
+              className="bg-[#f8fafc] outline-[#f1c40f] rounded-l-md h-8 px-4"
               value={state.enterItem}
               placeholder="eg. Learn to code"
               onChange={handleChange}

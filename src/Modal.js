@@ -27,7 +27,7 @@ const Modal = ({ closeModal, modalContent, singleItems, modalColor }) => {
 
   return (
     <>
-      <div className="absolute top-12 right-[25%] md:right-[40%] w-72 h-16 bg-white shadow-md rounded ">
+      <div className="absolute top-16 md:top-12 right-[10%] md:right-[40%] w-72 h-16 bg-white shadow-md rounded ">
         <div className="w-full h-full flex flex-col items-start justify-center">
           <section
             className={` mx-auto  mt-3 text-xl`}
