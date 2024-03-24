@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import GroceryItem from "./GroceryItem";
 import Modal from "./Modal";
 import { MdGppGood } from "react-icons/md";
@@ -13,6 +13,20 @@ import { HiFire } from "react-icons/hi";
 //<GrStatusGood />
 //<HiFire />;
 
+//LocalStorage setup
+const getLocalStorage = () => {
+  const list = localStorage.getItem("Items");
+  if(list){
+    return JSON.parse(localStorage.getItem("Items"));
+  }else{
+    return []
+  }
+}
+
+//colors
+const greenColor = "#15803d";
+const redColor = "#ff0000"
+
 //Reducer function
 const reducer = (state, action) => {
   if (action.type === "ITEM_CHANGED") {
@@ -26,7 +40,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isModalOpen: true,
-      modalColor: "red-500",
+      modalColor: `${redColor}`,
       modalContent: (
         <>
           <div className="flex items-center justify-center gap-3">
@@ -42,7 +56,7 @@ const reducer = (state, action) => {
       ...state,
       listItems: [],
       isModalOpen: true,
-      modalColor: "red-500",
+      modalColor: `${redColor}`,
       modalContent: (
         <>
           <div className="flex items-center justify-center gap-3">
@@ -61,7 +75,7 @@ const reducer = (state, action) => {
       ...state,
       listItems: newListItem,
       isModalOpen: true,
-      modalColor: "red-500",
+      modalColor: `${redColor}`,
       modalContent: (
         <>
           <div className="flex items-center justify-center gap-3">
@@ -85,7 +99,7 @@ const reducer = (state, action) => {
       isEditing: false,
       enterItem: "",
       isModalOpen: true,
-      modalColor: "green-500",
+      modalColor: `${greenColor}`,
       modalContent: (
         <>
           <div className="flex items-center justify-center gap-3">
@@ -104,7 +118,7 @@ const reducer = (state, action) => {
       ...state,
       enterItem: editedItem.item,
       isModalOpen: true,
-      modalColor: "green-500",
+      modalColor: `${greenColor}`,
       modalContent: (
         <>
           <div className="flex items-center justify-center gap-3">
@@ -127,7 +141,7 @@ const reducer = (state, action) => {
       listItems: updateItems,
       enterItem: "",
       isModalOpen: true,
-      modalColor: "green-500",
+      modalColor: `${greenColor}`,
       modalContent: (
         <>
           <div className="flex items-center justify-center">
@@ -152,7 +166,7 @@ const reducer = (state, action) => {
 //Default state
 const defaultState = {
   enterItem: "",
-  listItems: [],
+  listItems: getLocalStorage(),
   isModalOpen: false,
   modalContent: "",
   modalColor: "",
@@ -197,6 +211,10 @@ const App = () => {
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
+
+  useEffect(() => {
+    localStorage.setItem('Items', JSON.stringify(state.listItems))
+  }, [state.listItems])
   return (
     <>
       <section className="w-full h-screen">
@@ -210,7 +228,9 @@ const App = () => {
         )}
         <div className="bg-white max-w-[32rem] mx-auto mt-36 shadow-md hover:shadow-lg rounded flex flex-col items-center justify-center gap-4 py-8">
           <h1 className="text-4xl">TODO LIST</h1>
-          <h1 className="italic text-gray-300">What do you want to do today?</h1>
+          <h1 className="italic text-gray-300">
+            What do you want to do today?
+          </h1>
           <form onSubmit={handleSubmit}>
             <input
               className="bg-[#f8fafc] outline-[#f1c40f] rounded-l-md w-72 h-8 px-4"
