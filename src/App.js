@@ -1,111 +1,250 @@
-import React, { useReducer, useState } from "react";
-import Values from "values.js";
-import SingleColor from "./SingleColor";
+import React, { useReducer } from "react";
+import GroceryItem from "./GroceryItem";
 import Modal from "./Modal";
-import { reducer } from "./Reducer";
+import { MdGppGood } from "react-icons/md";
+import { RiAlarmWarningFill } from "react-icons/ri";
+import { CiEdit } from "react-icons/ci";
+import { GrStatusGood } from "react-icons/gr";
+import { HiFire } from "react-icons/hi";
 
-//defualt state
-const defaultState = {
-  colorList: new Values("#f15025").all(10),
-  isModalOpen: false,
-  modalContent: "",
+//<MdGppGood />
+//<RiAlarmWarningFill />
+//<CiEdit />
+//<GrStatusGood />
+//<HiFire />;
+
+//Reducer function
+const reducer = (state, action) => {
+  if (action.type === "ITEM_CHANGED") {
+    const value = action.payload;
+    return {
+      ...state,
+      enterItem: value,
+    };
+  } //action item_changed ends
+  if (action.type === "EMPTY_VALUE") {
+    return {
+      ...state,
+      isModalOpen: true,
+      modalColor: "red-500",
+      modalContent: (
+        <>
+          <div className="flex items-center justify-center gap-3">
+            <RiAlarmWarningFill />
+            <h1>Please Enter A Value</h1>
+          </div>
+        </>
+      ),
+    };
+  } //action empty_value ends
+  if (action.type === "ITEMS_CLEARED") {
+    return {
+      ...state,
+      listItems: [],
+      isModalOpen: true,
+      modalColor: "red-500",
+      modalContent: (
+        <>
+          <div className="flex items-center justify-center gap-3">
+            <GrStatusGood />
+            <h1>Items Cleared</h1>
+          </div>
+        </>
+      ),
+    };
+  } //action Items_cleared ends
+  if (action.type === "ITEMS_DELETED") {
+    const newListItem = state.listItems.filter(
+      (items) => items.id !== action.payload
+    );
+    return {
+      ...state,
+      listItems: newListItem,
+      isModalOpen: true,
+      modalColor: "red-500",
+      modalContent: (
+        <>
+          <div className="flex items-center justify-center gap-3">
+            <HiFire />
+            <h1>Item Deleted</h1>
+          </div>
+        </>
+      ),
+    };
+  } //action Items_deleted ends
+  if (action.type === "IS_EDITING") {
+    const updateEditItem = state.listItems.map((items) => {
+      if (items.id === state.editID) {
+        return { ...items, item: state.enterItem };
+      }
+      return items;
+    });
+    return {
+      ...state,
+      listItems: updateEditItem,
+      isEditing: false,
+      enterItem: "",
+      isModalOpen: true,
+      modalColor: "green-500",
+      modalContent: (
+        <>
+          <div className="flex items-center justify-center gap-3">
+            <CiEdit />
+            <h1>Item Updated</h1>
+          </div>
+        </>
+      ),
+    };
+  } //action Is_Editing ends
+  if (action.type === "EDIT_ITEMS") {
+    const editedItem = state.listItems.find(
+      (items) => items.id === action.payload
+    );
+    return {
+      ...state,
+      enterItem: editedItem.item,
+      isModalOpen: true,
+      modalColor: "green-500",
+      modalContent: (
+        <>
+          <div className="flex items-center justify-center gap-3">
+            <GrStatusGood />
+            <h1>Editing Item</h1>
+          </div>
+        </>
+      ),
+      isEditing: true,
+      editID: action.payload,
+    };
+  } //action edited_items ends
+  if (action.type === "ITEMS_UPDATED") {
+    const updateItems = [
+      ...state.listItems,
+      { id: new Date().getTime().toString(), item: state.enterItem },
+    ];
+    return {
+      ...state,
+      listItems: updateItems,
+      enterItem: "",
+      isModalOpen: true,
+      modalColor: "green-500",
+      modalContent: (
+        <>
+          <div className="flex items-center justify-center">
+            <MdGppGood />
+            <h1>Item Added</h1>
+          </div>
+        </>
+      ),
+      isEditing: false,
+    };
+  } //action items_updated ends
+  if (action.type === "CLOSE_MODAL") {
+    return {
+      ...state,
+      isModalOpen: false,
+      modalContent: "",
+    };
+  } //action close_modal ends
+  return state;
 };
 
+//Default state
+const defaultState = {
+  enterItem: "",
+  listItems: [],
+  isModalOpen: false,
+  modalContent: "",
+  modalColor: "",
+  isEditing: false,
+  editID: null,
+};
 const App = () => {
-  const [selectColor, setSelectColor] = useState(""); //select input color
-  const [state, dispatch] = useReducer(reducer, defaultState); //reducer hooks
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
-  //handle input change function
+  //Handle input
   const handleChange = (e) => {
-    setSelectColor(e.target.value);
+    dispatch({ type: "ITEM_CHANGED", payload: e.target.value });
   };
-
-  //handle submit button
+  //Handle Submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      let color = new Values(selectColor);
-      const mycolors = color.all(10);
-      dispatch({ type: "COLOR_ADDED", payload: mycolors });
-    } catch (error) {
-      const errorMessage = error.message.replace(/^Error: /, "");
-      dispatch({ type: "INVALID_COLOR", payload: `${errorMessage}` });
+    const emptySpace = state.enterItem.trim();
+    if (!state.enterItem || emptySpace === "") {
+      dispatch({ type: "EMPTY_VALUE" });
+    } else if (state.enterItem && state.isEditing) {
+      dispatch({ type: "IS_EDITING" });
+    } else {
+      dispatch({ type: "ITEMS_UPDATED" });
     }
   };
-  // console.log(colorList);
+  //Handle Clear All button
+  const handleClearAll = () => {
+    dispatch({ type: "ITEMS_CLEARED" });
+  };
 
-  //Close Modal function
+  //Handle Delete Item button
+  const deleteItem = (selectedId) => {
+    dispatch({ type: "ITEMS_DELETED", payload: selectedId });
+  };
+
+  //Handle Edit button
+  const editItem = (selectedId) => {
+    dispatch({ type: "EDIT_ITEMS", payload: selectedId });
+  };
+
+  //Close Modal
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
-  //Close Button function
-  const closeButton = () => {
-    dispatch({ type: "CLOSE_BUTTON" });
-  };
-
-  //handle copied function
-  const handleCopied = (hex) => {
-    const hexColor = `#${hex}`;
-    navigator.clipboard.writeText(hexColor);
-    dispatch({ type: "COPIED" });
-  };
-
   return (
     <>
-      {state.isModalOpen && (
-        <Modal
-          modalContent={state.modalContent}
-          closeModal={closeModal}
-          closeButton={closeButton}
-        />
-      )}
-      <section className="flex my-[60px] ml-8 md:ml-2 gap-12 justify-center flex-col md:items-center md:flex-row">
-        <h1 className="text-2xl">Color Generator</h1>
-        <div>
-          <form
-            className="flex justify-between bg-white w-96 h-12"
-            onSubmit={handleSubmit}
-          >
-            <aside
-              style={{ background: selectColor }}
-              className="h-8 w-12 m-2 bg-black"
-            ></aside>
-            <div className="flex ">
-              <input
-                type="text"
-                value={selectColor}
-                style={{ outlineColor: selectColor }}
-                placeholder="#f15025"
-                className="w-60 placeholder:text-xl text-xl px-4"
-                onChange={handleChange}
-              />
-              <button
-                type="submit"
-                style={{ background: selectColor }}
-                className="bg-blue-700 rounded-r w-20 text-white"
-              >
-                Submit
-              </button>
-            </div>
+      <section className="w-full h-screen">
+        {state.isModalOpen && (
+          <Modal
+            modalContent={state.modalContent}
+            modalColor={state.modalColor}
+            closeModal={closeModal}
+            singleItems={state.listItems}
+          />
+        )}
+        <div className="bg-white max-w-[32rem] mx-auto mt-36 shadow-md hover:shadow-lg rounded flex flex-col items-center justify-center gap-4 py-8">
+          <h1 className="text-4xl">TODO LIST</h1>
+          <h1 className="italic text-gray-300">What do you want to do today?</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="bg-[#f8fafc] outline-[#f1c40f] rounded-l-md w-72 h-8 px-4"
+              value={state.enterItem}
+              placeholder="eg. Learn to code"
+              onChange={handleChange}
+            />
+            <button
+              type="submit"
+              className="bg-[#3498db] px-4 rounded-r-md h-8 text-white hover:bg-[#164e63]"
+            >
+              {state.isEditing ? "Edit" : "Add"}
+            </button>
           </form>
-        </div>
-      </section>
-
-      {/* Display List of Colors  */}
-      <section className="flex flex-wrap">
-        {state.colorList.map((color, index) => {
-          return (
+          {state.listItems.length > 0 && (
             <>
-              <SingleColor
-                {...color}
-                index={index}
-                hex={color.hex}
-                closeModal={closeModal}
-                handleCopied={handleCopied}
-                              />
+              <div>
+                <GroceryItem
+                  singleItems={state.listItems}
+                  deleteItem={deleteItem}
+                  editItem={editItem}
+                  isEditing={state.isEditing}
+                />
+              </div>
+              {/* Clear All Item button */}
+              <button
+                className="text-red-500 hover:text-red-700"
+                onClick={handleClearAll}
+              >
+                Clear All
+              </button>
             </>
-          );
-        })}
+          )}
+        </div>
       </section>
     </>
   );
