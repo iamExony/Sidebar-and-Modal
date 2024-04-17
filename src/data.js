@@ -6,8 +6,8 @@ export const navBar = [
 },
     {
     id: 2,
-    name: "About",
-    url: "/about"
+    name: "Team",
+    url: "/team"
 },
     {
     id: 3,
@@ -16,12 +16,12 @@ export const navBar = [
 },
     {
     id: 4,
-    name: "Contact",
-    url: "/contact"
+    name: "Calendar",
+    url: "/calendar"
 },
     {
     id: 5,
-    name: "Profile",
-    url: "/profile"
+    name: "Documents",
+    url: "/Documents"
 }
 ]

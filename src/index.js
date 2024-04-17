@@ -1,6 +1,15 @@
 import React from "react";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 import App from "./App";
 import './index.css' 
+import { AppProvider } from "./Context";
 
-ReactDom.render(<App />, document.querySelector("#root"));
+ReactDOM.render(
+    <React.StrictMode>
+    <AppProvider>
+        <App />
+    </AppProvider> 
+    </React.StrictMode>,
+document.querySelector("#root")
+    )
+

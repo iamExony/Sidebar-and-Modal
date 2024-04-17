@@ -4,13 +4,13 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        topdown: {
-          from: { transform: "translateY(-30px)" },
-          to: { transform: "translateY(100px)" },
+        blink: {
+          from: { transform: "scale(0.5, 0.5)" },
+          to: { transform: "scale(1, 1)" },
         },
       },
       animation: {
-        topdown: "topdown 1s linear 1s",
+        blink: "blink 1s linear infinite alternate",
       },
       gridTemplateColumns: {
         space: "1fr 1fr 1fr",
